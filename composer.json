@@ -67,6 +67,7 @@
         ],
         "vercel": [
             "@php -r \"touch('database/vercel.sqlite');\"",
+            "@putenv DB_CONNECTION=sqlite",
             "@putenv DB_DATABASE=database/vercel.sqlite",
             "@php artisan migrate --force --no-interaction",
             "@php -r \"if (getenv('ADMIN_EMAIL') && getenv('ADMIN_PASSWORD')) { passthru(escapeshellarg(PHP_BINARY).' artisan admin:create --no-interaction --name=Admin --email='.escapeshellarg(getenv('ADMIN_EMAIL')).' --password='.escapeshellarg(getenv('ADMIN_PASSWORD'))); }\""
