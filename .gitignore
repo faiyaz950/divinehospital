@@ -21,6 +21,7 @@
 /public/images/uploads
 /hospitalimages */
 /divine-deploy.zip
+/composer.phar
 /public/storage
 /storage/*.key
 /storage/pail

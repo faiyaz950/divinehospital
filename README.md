@@ -62,10 +62,16 @@ All motion lives in section **23. Motion** of `public/css/app.css` plus `public/
 php artisan test
 ```
 
-## Deploying to shared hosting (cPanel / Hostinger)
+## Deploying to BigRock (cPanel) from GitHub
 
-1. Upload the project and point the domain's document root to `public/`.
-2. Set `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://your-domain` in `.env`.
-3. Run `php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache`.
-4. Run `php artisan admin:create` to set up the admin login, and make sure `public/images/uploads` is writable.
-5. Add your domain to the `Sitemap:` line in `public/robots.txt`.
+First time:
+
+1. cPanel → **Git Version Control** → **Create**: clone `https://github.com/faiyaz950/divinehospital.git` into `divinehospital`.
+2. cPanel → **Domains**: point `hospitaldivine.in` to the document root `divinehospital/public`.
+3. cPanel → **MultiPHP Manager**: set PHP 8.4 for the domain.
+4. Git Version Control → **Manage** → **Pull or Deploy** → **Deploy HEAD Commit**. This runs `deploy.sh` (see `.cpanel.yml`): it creates a production `.env` and app key, installs Composer packages, migrates the SQLite database and caches everything.
+5. cPanel → **Terminal**: `cd ~/divinehospital && php artisan admin:create`.
+
+Every update: `git push`, then in Git Version Control → **Update from Remote** → **Deploy HEAD Commit**.
+
+`.env`, `database/database.sqlite` and `public/images/uploads` live only on the server and are never overwritten by a deploy.
