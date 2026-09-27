@@ -46,6 +46,9 @@ fi
 
 touch database/database.sqlite
 mkdir -p public/images/uploads
+# Apache needs to traverse the repository folder (cPanel clones it as 700) to serve public/.
+chmod 711 .
+chmod 755 public
 find storage bootstrap/cache database public/images/uploads -type d -exec chmod 775 {} +
 
 "$PHP" artisan migrate --force --no-interaction

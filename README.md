@@ -68,7 +68,7 @@ First time:
 
 1. cPanel → **Git Version Control** → **Create**: clone `https://github.com/faiyaz950/divinehospital.git` into `divinehospital`.
 2. cPanel → **Domains**: point `hospitaldivine.in` to the document root `divinehospital/public`.
-3. cPanel → **MultiPHP Manager**: set PHP 8.4 for the domain.
+3. cPanel → **MultiPHP Manager**: set PHP 8.3 for the domain (the highest version on this server; `composer.json` pins the platform to PHP 8.3 so the lock file stays installable).
 4. Git Version Control → **Manage** → **Pull or Deploy** → **Deploy HEAD Commit**. This runs `deploy.sh` (see `.cpanel.yml`): it creates a production `.env` and app key, installs Composer packages, migrates the SQLite database and caches everything.
 5. cPanel → **Terminal**: `cd ~/divinehospital && php artisan admin:create`.
 
