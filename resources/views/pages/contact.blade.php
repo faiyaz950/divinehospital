@@ -24,5 +24,5 @@
         </div>
     </x-page-hero>
 
-    @include('sections.appointment', ['showHead' => false])
+    @include('sections.location', ['showHead' => false])
 </x-layout>

@@ -15,7 +15,7 @@ class PagesTest extends TestCase
             'services' => ['services', 'Endoscopic Sinus Surgery (FESS)'],
             'facilities' => ['facilities', 'High-Definition Endoscopy Unit'],
             'gallery' => ['gallery', 'Take a look'],
-            'contact' => ['contact', 'Request an appointment'],
+            'contact' => ['contact', 'Consultation Timings'],
         ];
     }
 
@@ -80,9 +80,18 @@ class PagesTest extends TestCase
         $this->get('/does-not-exist')->assertNotFound()->assertSee('that page');
     }
 
-    public function test_concern_query_preselects_the_form_option(): void
+    #[DataProvider('pages')]
+    public function test_pages_offer_no_online_booking(string $route): void
     {
-        $this->get(route('contact', ['concern' => 'nose']))
-            ->assertSee('<option value="nose" selected', false);
+        $this->get(route($route))
+            ->assertDontSee('#appointment', false)
+            ->assertDontSee('<form', false)
+            ->assertDontSee('Book ')
+            ->assertSee('Directions');
+    }
+
+    public function test_booking_endpoint_no_longer_exists(): void
+    {
+        $this->post('/appointments', ['name' => 'Asha', 'phone' => '9876543210'])->assertNotFound();
     }
 }

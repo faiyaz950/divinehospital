@@ -4,7 +4,7 @@
         <div class="container error-page">
             <p class="error-page__code">Hold on</p>
             <h1 class="page-hero__title">Too many requests <em>in a short time</em></h1>
-            <p class="lead">Please wait a minute and try again — or simply call or WhatsApp us to book.</p>
+            <p class="lead">Please wait a minute and try again — or simply call or WhatsApp us.</p>
             <div class="btn-row btn-row--center">
                 <a class="btn btn--gold btn--lg" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ $clinic->phone() }}</a>
                 <a class="btn btn--whatsapp btn--lg" href="{{ $clinic->whatsappUrl() }}" target="_blank" rel="noopener"><x-icon name="whatsapp" /> WhatsApp</a>

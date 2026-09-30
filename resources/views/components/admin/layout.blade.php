@@ -1,7 +1,6 @@
 @props(['title', 'active' => null])
 @php
     $groups = app(\App\Support\ContentSchema::class)->grouped();
-    $newCount = \App\Models\Appointment::where('status', 'new')->count();
     $asset = fn (string $path) => asset($path).'?v='.filemtime(public_path($path));
 @endphp
 <!DOCTYPE html>
@@ -27,13 +26,6 @@
 
         <nav class="a-nav" aria-label="Admin">
             <a @class(['a-nav__link', 'is-active' => $active === 'dashboard']) href="{{ route('admin.dashboard') }}"><x-icon name="sparkles" /> Dashboard</a>
-            <a @class(['a-nav__link', 'is-active' => $active === 'appointments']) href="{{ route('admin.appointments.index') }}">
-                <x-icon name="calendar-check" /> Appointments
-                @if ($newCount)
-                    <span class="a-badge">{{ $newCount }}</span>
-                @endif
-            </a>
-
             @foreach ($groups as $group => $screens)
                 <p class="a-nav__group">{{ $group }}</p>
                 @foreach ($screens as $key => $screen)

@@ -30,7 +30,7 @@
             @endif
 
             <div class="btn-row hero__ctas rise" style="--i:9">
-                <a class="btn btn--gold btn--lg btn--shine" href="#appointment" data-magnetic><x-icon name="calendar-check" /> {{ $hero['primary_button'] }}</a>
+                <a class="btn btn--gold btn--lg btn--shine" href="{{ $clinic->phoneHref() }}" data-magnetic><x-icon name="phone" /> {{ $hero['call_button'] }}</a>
                 @if ($hero['secondary_button'])
                     <a class="btn btn--outline btn--lg" href="#location" data-magnetic><x-icon name="map-pin" /> {{ $hero['secondary_button'] }}</a>
                 @endif

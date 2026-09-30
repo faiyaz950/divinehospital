@@ -43,11 +43,6 @@ class Clinic
         return $this->content->get('clinic.numbers.email') ?: null;
     }
 
-    public function notifyEmail(): ?string
-    {
-        return $this->content->get('clinic.numbers.notify_email') ?: null;
-    }
-
     public function phoneHref(): string
     {
         return 'tel:'.preg_replace('/[^\d+]/', '', $this->phone());
@@ -145,17 +140,7 @@ class Clinic
         return CarbonImmutable::now(config('clinic.timezone'));
     }
 
-    /**
-     * Appointment form "area of concern" options.
-     *
-     * @return array<string, string>
-     */
-    public function concerns(): array
-    {
-        return collect($this->content->get('common.appointment.concerns'))->pluck('label', 'value')->all();
-    }
-
-    /** Link that works for both site paths ("/contact#appointment") and full URLs. */
+    /** Link that works for both site paths ("/contact#location") and full URLs. */
     public function link(string $url): string
     {
         return preg_match('#^(https?:|mailto:|tel:)#', $url) ? $url : url($url);

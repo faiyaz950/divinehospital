@@ -15,7 +15,7 @@ php artisan serve
 
 ## Admin panel
 
-All website content — every page and section, specialities, timings, phone numbers, address, doctor profile, photos, logo, SEO, header and footer — is edited at **`/admin`**. Appointment requests are listed there too.
+All website content — every page and section, specialities, timings, phone numbers, address, doctor profile, photos, logo, SEO, header and footer — is edited at **`/admin`**.
 
 Create (or reset) an admin login:
 
@@ -37,15 +37,9 @@ Uploaded photos are converted to WebP automatically and saved in `public/images/
 | Default photos | `public/images/*.webp` (640/1024/1600px widths) |
 
 In templates, read content with `site('screen.section.field')`, for example `site('clinic.numbers.phone')`.
-The `CLINIC_*` and `APPOINTMENT_NOTIFY_EMAIL` values in `.env` are only used as defaults until they are changed in the admin panel.
+The `CLINIC_*` values in `.env` are only used as defaults until they are changed in the admin panel.
 
 After editing `.env` or config on a live server, run `php artisan config:cache`.
-
-## Appointment requests
-
-The form saves each request to the `appointments` table and redirects back with a confirmation, plus a prefilled WhatsApp message.
-If a notification email is set (admin → Contact & timings) and the `MAIL_*` settings are configured, the reception also gets an email.
-There is spam protection (a honeypot field and a limit of 5 submissions per minute per IP).
 
 ## Animations
 

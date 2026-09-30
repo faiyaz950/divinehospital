@@ -7,7 +7,7 @@
                 <p class="footer-cta__text">{{ site('layout.footer.cta_text') }}</p>
             </div>
             <div class="btn-row">
-                <a class="btn btn--gold btn--lg" href="{{ route('contact') }}#appointment" data-magnetic><x-icon name="calendar-check" /> {{ site('layout.footer.cta_button') }}</a>
+                <a class="btn btn--gold btn--lg" href="{{ $clinic->whatsappUrl(site('clinic.numbers.whatsapp_greeting')) }}" target="_blank" rel="noopener" data-magnetic><x-icon name="whatsapp" /> {{ site('layout.footer.cta_button') }}</a>
                 <a class="btn btn--outline-light btn--lg" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ $clinic->phone() }}</a>
             </div>
         </div>

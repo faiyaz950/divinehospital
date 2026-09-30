@@ -45,8 +45,8 @@
             <a class="btn btn--outline btn--sm header-call" href="{{ $clinic->phoneHref() }}">
                 <x-icon name="phone" /> {{ site('layout.header.call_label') }}
             </a>
-            <a class="btn btn--gold btn--sm header-book" href="{{ route('contact') }}#appointment" data-magnetic>
-                <x-icon name="calendar-check" /> <span>{{ site('layout.header.book_label') }}</span>
+            <a class="btn btn--gold btn--sm header-wa" href="{{ $clinic->whatsappUrl(site('clinic.numbers.whatsapp_greeting')) }}" target="_blank" rel="noopener" data-magnetic>
+                <x-icon name="whatsapp" /> <span>{{ site('layout.header.whatsapp_label') }}</span>
             </a>
             <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
                 <span class="sr-only" data-menu-label>Open menu</span>
@@ -71,7 +71,7 @@
         </ul>
     </nav>
     <div class="mobile-menu__footer">
-        <a class="btn btn--gold btn--lg btn--block" href="{{ route('contact') }}#appointment"><x-icon name="calendar-check" /> {{ site('layout.header.book_label') }}</a>
+        <a class="btn btn--gold btn--lg btn--block" href="{{ $clinic->whatsappUrl(site('clinic.numbers.whatsapp_greeting')) }}" target="_blank" rel="noopener"><x-icon name="whatsapp" /> {{ site('layout.header.whatsapp_label') }}</a>
         <a class="btn btn--outline btn--lg btn--block" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ site('layout.header.call_label') }}: {{ $clinic->phone() }}</a>
         <p class="mobile-menu__hours"><x-icon name="clock" /> {{ $clinic->hoursSummary() }}</p>
     </div>

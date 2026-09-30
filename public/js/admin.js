@@ -106,10 +106,6 @@
       preview.append(img);
     }
 
-    if (target.matches('[data-autosubmit]')) {
-      target.form.submit();
-    }
-
     if (target.closest('[data-editor]')) markDirty();
   });
 

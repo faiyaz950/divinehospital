@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class AdminContentTest extends TestCase
@@ -134,7 +135,7 @@ class AdminContentTest extends TestCase
         );
         $this->get(route('home'))
             ->assertSee('Parking &amp; directions', false)
-            ->assertDontSee($links[3]['label']);
+            ->assertDontSee($links[2]['label']);
     }
 
     public function test_one_per_line_lists_are_saved_as_items(): void
@@ -285,22 +286,36 @@ class AdminContentTest extends TestCase
         $this->assertStringNotContainsString('id="testimonials-title"', $html);
     }
 
-    public function test_changed_timings_and_concerns_are_used_by_the_appointment_form(): void
+    public function test_changed_timings_are_shown_in_the_contact_block(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user)->put(route('admin.content.update', 'clinic'), $this->formFor('clinic', [
+        $this->actingAs(User::factory()->create())->put(route('admin.content.update', 'clinic'), $this->formFor('clinic', [
             'hours' => ['sessions' => [['label' => 'Full day', 'from' => '09:30', 'to' => '18:00']]],
         ]));
-        $this->actingAs($user)->put(route('admin.content.update', 'common'), $this->formFor('common', [
-            'appointment' => ['concerns' => [['value' => 'allergy', 'label' => 'Allergy testing']]],
-        ]));
 
-        $this->get(route('contact'))
-            ->assertSee('9:30 AM – 6:00 PM')
-            ->assertSee('<option value="allergy"', false)
-            ->assertDontSee('<option value="ear"', false);
+        $this->get(route('contact'))->assertSee('9:30 AM – 6:00 PM');
+    }
 
-        $this->post(route('appointments.store'), ['name' => 'Asha', 'phone' => '9876543210', 'concern' => 'ear'])
-            ->assertSessionHasErrors('concern');
+    public function test_saved_booking_content_is_rewritten_when_booking_is_removed(): void
+    {
+        SiteContent::create(['key' => 'home', 'value' => ['layout' => ['sections' => [['section' => 'hero'], ['section' => 'appointment']]]]]);
+        SiteContent::create(['key' => 'clinic', 'value' => ['numbers' => [
+            'whatsapp_greeting' => 'Hello Divine ENT Centre, I would like to book an appointment.',
+            'notify_email' => 'desk@example.com',
+        ]]]);
+        SiteContent::create(['key' => 'layout', 'value' => ['footer' => ['links' => [
+            ['label' => 'Home', 'url' => '/'],
+            ['label' => 'Book Online', 'url' => '/contact#appointment'],
+        ]]]]);
+
+        (require database_path('migrations/2026_09_30_181800_remove_appointment_booking.php'))->up();
+
+        $this->assertFalse(Schema::hasTable('appointments'));
+        $this->assertSame(['hero', 'location'], array_column(site('home.layout.sections'), 'section'));
+        $this->assertSame('Hello Divine ENT Centre, I have a query.', site('clinic.numbers.whatsapp_greeting'));
+        $this->assertArrayNotHasKey('notify_email', SiteContent::where('key', 'clinic')->value('value')['numbers']);
+        $this->get(route('home'))
+            ->assertSee('id="location-title"', false)
+            ->assertDontSee('Book Online')
+            ->assertDontSee('#appointment', false);
     }
 }

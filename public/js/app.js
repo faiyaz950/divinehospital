@@ -117,7 +117,7 @@
         }
       });
     }, {
-      // The huge top margin also reveals anything already scrolled past (e.g. after jumping to #appointment).
+      // The huge top margin also reveals anything already scrolled past (e.g. after jumping to #location).
       rootMargin: '99999px 0px -8% 0px',
       threshold: 0.12,
     });
@@ -192,33 +192,6 @@
     } catch (error) {
       /* keep the server-rendered timings */
     }
-  }
-
-  /* ---------- Appointment form ---------- */
-  const form = $('[data-appointment-form]');
-  if (form) {
-    form.addEventListener('submit', () => {
-      const button = $('[data-submit]', form);
-      if (!button) return;
-      button.classList.add('is-loading');
-      button.setAttribute('aria-disabled', 'true');
-      const label = $('[data-submit-label]', button);
-      if (label) label.textContent = 'Sending…';
-    });
-    // Restore the button if the page is shown again from the back/forward cache.
-    window.addEventListener('pageshow', () => {
-      const button = $('[data-submit]', form);
-      button?.classList.remove('is-loading');
-      button?.removeAttribute('aria-disabled');
-      const label = $('[data-submit-label]', form);
-      if (label) label.textContent = 'Request Appointment';
-    });
-  }
-
-  // Move focus to the success message / error summary after a form round-trip.
-  const autofocus = $('[data-autofocus]');
-  if (autofocus) {
-    requestAnimationFrame(() => autofocus.focus({ preventScroll: true }));
   }
 
   /* ---------- Services sub-navigation active state ---------- */

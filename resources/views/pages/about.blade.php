@@ -3,9 +3,9 @@
     <x-page-hero :crumb="$hero['crumb']" :lead="$hero['lead']">
         <x-slot:title>{{ site()->format($hero['title']) }}</x-slot:title>
         <div class="btn-row">
-            <a class="btn btn--gold btn--lg" href="#appointment"><x-icon name="calendar-check" /> {{ $hero['primary_button'] }}</a>
-            @if ($hero['secondary_button'])
-                <a class="btn btn--outline btn--lg" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ $hero['secondary_button'] }}</a>
+            <a class="btn btn--gold btn--lg" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ $hero['call_button'] }}</a>
+            @if ($hero['whatsapp_button'])
+                <a class="btn btn--outline btn--lg" href="{{ $clinic->whatsappUrl() }}" target="_blank" rel="noopener"><x-icon name="whatsapp" /> {{ $hero['whatsapp_button'] }}</a>
             @endif
         </div>
     </x-page-hero>
@@ -39,5 +39,5 @@
 
     @include('sections.why')
     @include('sections.testimonials')
-    @include('sections.appointment')
+    @include('sections.location')
 </x-layout>

@@ -62,7 +62,7 @@
             @endif
 
             <div class="btn-row about__ctas" data-reveal>
-                <a class="btn btn--teal btn--lg" href="{{ $full ? '#appointment' : route('contact').'#appointment' }}"><x-icon name="calendar-check" /> {{ $block['book_button'] }}</a>
+                <a class="btn btn--teal btn--lg" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ $block['call_button'] }}</a>
                 @unless ($full)
                     <a class="btn btn--outline btn--lg" href="{{ route('about') }}">{{ $block['profile_button'] }} <x-icon name="arrow-right" /></a>
                 @endunless

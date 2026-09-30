@@ -8,7 +8,7 @@
     <x-page-hero :crumb="$hero['crumb']" :image="$hero['image']" :image-alt="$hero['image_alt']" :lead="$hero['lead']">
         <x-slot:title>{{ site()->format($hero['title']) }}</x-slot:title>
         <div class="btn-row">
-            <a class="btn btn--gold btn--lg" href="{{ route('contact') }}#appointment"><x-icon name="calendar-check" /> {{ $hero['button'] }}</a>
+            <a class="btn btn--gold btn--lg" href="{{ $clinic->phoneHref() }}"><x-icon name="phone" /> {{ $hero['call_button'] }}</a>
         </div>
     </x-page-hero>
 
@@ -27,7 +27,6 @@
                         <p class="eyebrow">{{ $blocks['eyebrow'] }} {{ sprintf('%02d', $loop->iteration) }}</p>
                         <h2 class="h2 h2--sm">{{ $speciality['title'] }}</h2>
                         <p class="lead">{{ $speciality['summary'] }}</p>
-                        <a class="btn btn--teal" href="{{ route('contact', ['concern' => $speciality['key']]) }}#appointment"><x-icon name="calendar-check" /> {{ site()->format($blocks['book_label'], ['name' => e($speciality['short'])]) }}</a>
                     </div>
                     <div class="service-cards">
                         @foreach ($speciality['services'] as $service)

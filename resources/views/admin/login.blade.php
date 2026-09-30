@@ -15,7 +15,7 @@
     <main class="a-login__card">
         <img class="a-login__logo" src="{{ $clinic->logoUrl() }}" alt="" width="64" height="55">
         <h1>{{ $clinic->name() }}</h1>
-        <p class="a-muted">Sign in to manage the website and appointments.</p>
+        <p class="a-muted">Sign in to manage the website.</p>
 
         <form method="POST" action="{{ route('admin.login.store') }}" class="a-stack">
             @csrf

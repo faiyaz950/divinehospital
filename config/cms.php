@@ -23,7 +23,7 @@ $pages = [
     'services' => 'Specialities & Services',
     'facilities' => 'Facilities',
     'gallery' => 'Gallery',
-    'contact' => 'Contact & Appointments',
+    'contact' => 'Contact Us',
 ];
 
 $seo = fn (string $title, string $description) => [
@@ -66,12 +66,12 @@ return [
                                     'facilities' => 'Facilities',
                                     'why' => 'Why choose us',
                                     'testimonials' => 'Patient testimonials',
-                                    'appointment' => 'Appointment form & contact',
+                                    'location' => 'Contact details & map',
                                 ]],
                             ],
                             'default' => [
                                 ['section' => 'hero'], ['section' => 'marquee'], ['section' => 'about'], ['section' => 'services'],
-                                ['section' => 'facilities'], ['section' => 'why'], ['section' => 'testimonials'], ['section' => 'appointment'],
+                                ['section' => 'facilities'], ['section' => 'why'], ['section' => 'testimonials'], ['section' => 'location'],
                             ],
                         ],
                     ],
@@ -87,7 +87,7 @@ return [
                             'Dedicated Diagnostic & Testing Facilities',
                             'Patient-Centric & Modern Clinical Care',
                         ]],
-                        'primary_button' => ['type' => 'text', 'label' => 'Main button', 'default' => 'Book Consultation'],
+                        'call_button' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call Now'],
                         'secondary_button' => ['type' => 'text', 'label' => 'Second button', 'default' => 'Find Clinic Location'],
                         'image' => ['type' => 'picture', 'label' => 'Main photo', 'default' => 'exterior'],
                         'image_alt' => ['type' => 'text', 'label' => 'Photo description (for Google & screen readers)', 'default' => 'Divine Hospital building with Dr. Rajat Goel signage in Fatehgarh, Farrukhabad'],
@@ -131,8 +131,8 @@ return [
                         'crumb' => ['type' => 'text', 'label' => 'Breadcrumb', 'default' => 'About Doctor'],
                         'title' => ['type' => 'text', 'label' => 'Heading', 'required' => true, 'default' => 'About *Dr. Rajat Goel*', 'hint' => $accentHint],
                         'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'ENT specialist and Head & Neck surgeon at Divine Hospital, Farrukhabad — bringing modern, minimally invasive ENT care close to home.'],
-                        'primary_button' => ['type' => 'text', 'label' => 'Main button', 'default' => 'Book Consultation'],
-                        'secondary_button' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call Now'],
+                        'call_button' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call Now'],
+                        'whatsapp_button' => ['type' => 'text', 'label' => 'WhatsApp button', 'default' => 'WhatsApp'],
                     ],
                 ],
                 'panels' => [
@@ -171,7 +171,7 @@ return [
                         'crumb' => ['type' => 'text', 'label' => 'Breadcrumb', 'default' => 'Specialities & Services'],
                         'title' => ['type' => 'text', 'label' => 'Heading', 'required' => true, 'default' => 'Specialities & *Services*', 'hint' => $accentHint],
                         'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Comprehensive, state-of-the-art medical and surgical treatments for Ear, Nose, and Throat conditions — delivered with clinical precision and compassionate care.'],
-                        'button' => ['type' => 'text', 'label' => 'Button', 'default' => 'Book Consultation'],
+                        'call_button' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call Now'],
                         'image' => ['type' => 'picture', 'label' => 'Photo', 'default' => 'operation-theatre'],
                         'image_alt' => ['type' => 'text', 'label' => 'Photo description', 'default' => 'Operating theatre with endoscopic surgical system at Divine Hospital'],
                     ],
@@ -181,7 +181,6 @@ return [
                     'description' => 'Specialities and their treatments are edited under Content → Specialities & services.',
                     'fields' => [
                         'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'Speciality', 'hint' => 'A number (01, 02…) is added automatically.'],
-                        'book_label' => ['type' => 'text', 'label' => 'Button', 'default' => 'Book {name} consultation', 'hint' => '{name} is replaced with the speciality short name.'],
                     ],
                 ],
                 'interests' => [
@@ -320,14 +319,14 @@ return [
             'route' => 'contact',
             'icon' => 'phone',
             'sections' => [
-                'seo' => $seo('Contact & Appointments', 'Book an appointment with Dr. Rajat Goel, MS (ENT) at Divine Hospital – Divine ENT Centre, Fatehgarh, Farrukhabad. Consultation timings, phone, WhatsApp and directions.'),
+                'seo' => $seo('Contact Us', 'Contact Divine Hospital – Divine ENT Centre, Fatehgarh, Farrukhabad: consultation timings, phone, WhatsApp, address and directions to Dr. Rajat Goel, MS (ENT).'),
                 'hero' => [
                     'label' => 'Page header',
                     'description' => 'Phone numbers, address and map are edited under Settings → Contact & timings.',
                     'fields' => [
-                        'crumb' => ['type' => 'text', 'label' => 'Breadcrumb', 'default' => 'Contact & Appointments'],
-                        'title' => ['type' => 'text', 'label' => 'Heading', 'required' => true, 'default' => 'Book an appointment with *Dr. Rajat Goel*', 'hint' => $accentHint],
-                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Book online, call the reception or message us on WhatsApp — we’ll confirm a convenient consultation slot.'],
+                        'crumb' => ['type' => 'text', 'label' => 'Breadcrumb', 'default' => 'Contact Us'],
+                        'title' => ['type' => 'text', 'label' => 'Heading', 'required' => true, 'default' => 'Get in touch with *Divine Hospital*', 'hint' => $accentHint],
+                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Call the reception, message us on WhatsApp or visit us in Fatehgarh — we’re happy to help.'],
                         'call_label' => ['type' => 'text', 'label' => 'Phone card label', 'default' => 'Call reception'],
                         'whatsapp_label' => ['type' => 'text', 'label' => 'WhatsApp card label', 'default' => 'WhatsApp inquiries'],
                         'email_label' => ['type' => 'text', 'label' => 'Email card label', 'default' => 'Email'],
@@ -346,7 +345,7 @@ return [
             'group' => 'Content',
             'route' => 'services',
             'icon' => 'ear',
-            'description' => 'Used on the home page, the Services page, the footer and the appointment form links.',
+            'description' => 'Used on the home page, the Services page and the footer.',
             'sections' => [
                 'list' => [
                     'label' => 'Specialities',
@@ -354,7 +353,7 @@ return [
                         'items' => [
                             'type' => 'repeater', 'label' => 'Specialities', 'item_label' => 'title', 'add_label' => 'Add speciality', 'max' => 12,
                             'fields' => [
-                                'key' => ['type' => 'text', 'label' => 'Link ID', 'required' => true, 'slug' => true, 'distinct' => true, 'hint' => 'Short, lowercase, no spaces (e.g. ear). Matching an appointment “concern” value pre-selects it in the form.'],
+                                'key' => ['type' => 'text', 'label' => 'Link ID', 'required' => true, 'slug' => true, 'distinct' => true, 'hint' => 'Short, lowercase, no spaces (e.g. ear). Used in page links like /ent-services#ear.'],
                                 'title' => ['type' => 'text', 'label' => 'Title', 'required' => true],
                                 'short' => ['type' => 'text', 'label' => 'Short name', 'required' => true],
                                 'icon' => ['type' => 'icon', 'label' => 'Icon', 'default' => 'stethoscope'],
@@ -426,7 +425,7 @@ return [
                         'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'Why Choose Us'],
                         'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Why Choose Divine Hospital / *Divine ENT Centre?*', 'hint' => $accentHint],
                         'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Modern ENT care that puts accurate answers, gentle techniques and honest guidance first — right here in Farrukhabad.'],
-                        'button' => ['type' => 'text', 'label' => 'Button', 'default' => 'Book Consultation'],
+                        'call_button' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call Now'],
                         'reasons' => [
                             'type' => 'repeater', 'label' => 'Reasons', 'item_label' => 'title', 'add_label' => 'Add reason', 'max' => 8,
                             'fields' => [
@@ -464,32 +463,13 @@ return [
                         'note' => ['type' => 'text', 'label' => 'Small note below', 'default' => 'Experiences shared by our patients. Individual results may vary.'],
                     ],
                 ],
-                'appointment' => [
-                    'label' => 'Appointment form & contact block',
+                'location' => [
+                    'label' => 'Contact details & map block',
+                    'description' => 'Phone numbers, address, timings and map are edited under Settings → Contact & timings.',
                     'fields' => [
-                        'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'Appointment & Contact'],
-                        'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Book your *consultation*', 'hint' => $accentHint],
-                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Share a few details and our reception team will call you to confirm a convenient slot.'],
-                        'form_title' => ['type' => 'text', 'label' => 'Form heading', 'default' => 'Request an appointment'],
-                        'form_text' => ['type' => 'text', 'label' => 'Form intro', 'default' => 'Takes less than a minute.'],
-                        'submit' => ['type' => 'text', 'label' => 'Submit button', 'default' => 'Request Appointment'],
-                        'privacy' => ['type' => 'text', 'label' => 'Privacy note', 'default' => 'Your details are used only to schedule your visit.'],
-                        'success' => ['type' => 'textarea', 'label' => 'Message after booking', 'rows' => 2, 'default' => 'Your appointment request has been received. Our reception team will call you on {phone} to confirm your slot.', 'hint' => '{phone} is replaced with the patient’s number.'],
-                        'whatsapp_button' => ['type' => 'text', 'label' => 'WhatsApp button after booking', 'default' => 'Also confirm on WhatsApp'],
-                        'concerns' => [
-                            'type' => 'repeater', 'label' => '“Area of concern” options', 'item_label' => 'label', 'add_label' => 'Add option', 'max' => 20,
-                            'fields' => [
-                                'value' => ['type' => 'text', 'label' => 'ID', 'required' => true, 'slug' => true, 'distinct' => true, 'max' => 40, 'hint' => 'Lowercase, no spaces. Use a speciality Link ID to connect its “Book” button.'],
-                                'label' => ['type' => 'text', 'label' => 'Label', 'required' => true],
-                            ],
-                            'default' => [
-                                ['value' => 'ear', 'label' => 'Ear / Hearing / Vertigo'],
-                                ['value' => 'nose', 'label' => 'Nose / Sinus / Allergy'],
-                                ['value' => 'throat', 'label' => 'Throat / Voice / Neck'],
-                                ['value' => 'hearing-test', 'label' => 'Hearing test (Audiometry)'],
-                                ['value' => 'other', 'label' => 'Other / Not sure'],
-                            ],
-                        ],
+                        'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'Visit Us'],
+                        'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Find *Divine Hospital*', 'hint' => $accentHint],
+                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Consultation timings, phone numbers and directions to our centre in Fatehgarh, Farrukhabad.'],
                     ],
                 ],
             ],
@@ -511,9 +491,8 @@ return [
                     'fields' => [
                         'phone' => ['type' => 'text', 'label' => 'Reception phone', 'required' => true, 'default' => env('CLINIC_PHONE', '+91 96485 06121')],
                         'whatsapp' => ['type' => 'text', 'label' => 'WhatsApp number', 'required' => true, 'default' => env('CLINIC_WHATSAPP', '+91 96485 06121')],
-                        'whatsapp_greeting' => ['type' => 'text', 'label' => 'WhatsApp button pre-filled message', 'default' => 'Hello Divine ENT Centre, I would like to book an appointment.'],
+                        'whatsapp_greeting' => ['type' => 'text', 'label' => 'WhatsApp button pre-filled message', 'default' => 'Hello Divine ENT Centre, I have a query.'],
                         'email' => ['type' => 'email', 'label' => 'Public email', 'default' => env('CLINIC_EMAIL', 'divinehospital25@gmail.com')],
-                        'notify_email' => ['type' => 'email', 'label' => 'Email for new appointment alerts', 'default' => env('APPOINTMENT_NOTIFY_EMAIL', 'divinehospital25@gmail.com'), 'hint' => 'Leave empty to only save requests in the admin panel. Needs MAIL_* settings in .env to actually send.'],
                     ],
                 ],
                 'address' => [
@@ -553,7 +532,7 @@ return [
                             ],
                         ],
                         'closed_label' => ['type' => 'text', 'label' => 'Closed day', 'default' => 'Sunday'],
-                        'closed_note' => ['type' => 'text', 'label' => 'Closed day note', 'default' => 'By prior appointment / Emergency only'],
+                        'closed_note' => ['type' => 'text', 'label' => 'Closed day note', 'default' => 'Emergency only'],
                     ],
                 ],
             ],
@@ -610,7 +589,7 @@ return [
                         'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'About Dr. Rajat Goel'],
                         'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Meet Your *Specialist*', 'hint' => $accentHint],
                         'expertise_heading' => ['type' => 'text', 'label' => 'Expertise heading', 'default' => 'Special Interests & Expertise'],
-                        'book_button' => ['type' => 'text', 'label' => 'Book button', 'default' => 'Book with Dr. Rajat Goel'],
+                        'call_button' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call the clinic'],
                         'profile_button' => ['type' => 'text', 'label' => 'Profile button (home page)', 'default' => 'Full profile'],
                         'inset_image' => ['type' => 'picture', 'label' => 'Small photo (shown only when there is no portrait)', 'default' => 'procedure-room'],
                         'inset_alt' => ['type' => 'text', 'label' => 'Small photo description', 'default' => 'ENT procedure room with endoscopy equipment at Divine Hospital'],
@@ -683,11 +662,11 @@ return [
                                 ['route' => 'services', 'label' => 'Specialities & Services', 'short' => 'Services'],
                                 ['route' => 'facilities', 'label' => 'Facilities', 'short' => 'Facilities'],
                                 ['route' => 'gallery', 'label' => 'Gallery', 'short' => 'Gallery'],
-                                ['route' => 'contact', 'label' => 'Contact & Appointments', 'short' => 'Contact'],
+                                ['route' => 'contact', 'label' => 'Contact Us', 'short' => 'Contact'],
                             ],
                         ],
                         'call_label' => ['type' => 'text', 'label' => 'Call button', 'default' => 'Call Now'],
-                        'book_label' => ['type' => 'text', 'label' => 'Book button', 'default' => 'Book an Appointment'],
+                        'whatsapp_label' => ['type' => 'text', 'label' => 'WhatsApp button', 'default' => 'WhatsApp Us'],
                     ],
                 ],
                 'footer' => [
@@ -695,20 +674,20 @@ return [
                     'fields' => [
                         'cta_title' => ['type' => 'text', 'label' => 'Banner heading', 'default' => 'Hear better. Breathe easier. *Speak freely.*', 'hint' => $accentHint],
                         'cta_text' => ['type' => 'text', 'label' => 'Banner text', 'default' => 'Consult Dr. Rajat Goel, MS (ENT), at Divine Hospital, Farrukhabad.'],
-                        'cta_button' => ['type' => 'text', 'label' => 'Banner button', 'default' => 'Book an Appointment'],
+                        'cta_button' => ['type' => 'text', 'label' => 'Banner WhatsApp button', 'default' => 'Chat on WhatsApp'],
                         'about' => ['type' => 'textarea', 'label' => 'Short description under the logo', 'rows' => 2, 'default' => 'Advanced ENT & Head-Neck surgical care in Farrukhabad, led by Dr. Rajat Goel (MBBS, MS (ENT, Head & Neck Surgery)).'],
                         'links_title' => ['type' => 'text', 'label' => 'Links column heading', 'default' => 'Quick Links'],
                         'links' => [
                             'type' => 'repeater', 'label' => 'Quick links', 'item_label' => 'label', 'add_label' => 'Add link', 'max' => 10,
                             'fields' => [
                                 'label' => ['type' => 'text', 'label' => 'Label', 'required' => true],
-                                'url' => ['type' => 'text', 'label' => 'Link', 'required' => true, 'hint' => 'A page path like /contact#appointment or a full https:// address.'],
+                                'url' => ['type' => 'text', 'label' => 'Link', 'required' => true, 'hint' => 'A page path like /contact#location or a full https:// address.'],
                             ],
                             'default' => [
                                 ['label' => 'Home', 'url' => '/'],
                                 ['label' => 'About', 'url' => '/about-dr-rajat-goel'],
                                 ['label' => 'Treatments', 'url' => '/ent-services'],
-                                ['label' => 'Book Online', 'url' => '/contact#appointment'],
+                                ['label' => 'Facilities', 'url' => '/facilities'],
                                 ['label' => 'Contact Us', 'url' => '/contact'],
                             ],
                         ],

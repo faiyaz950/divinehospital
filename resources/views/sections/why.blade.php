@@ -6,7 +6,7 @@
             <h2 class="h2" id="why-title" data-reveal>{{ site()->format($why['title']) }}</h2>
             <p class="lead" data-reveal>{{ $why['lead'] }}</p>
             <div class="btn-row" data-reveal>
-                <a class="btn btn--gold btn--lg" href="{{ route('contact') }}#appointment" data-magnetic><x-icon name="calendar-check" /> {{ $why['button'] }}</a>
+                <a class="btn btn--gold btn--lg" href="{{ $clinic->phoneHref() }}" data-magnetic><x-icon name="phone" /> {{ $why['call_button'] }}</a>
             </div>
         </div>
 

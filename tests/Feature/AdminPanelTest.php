@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -11,11 +10,6 @@ use Tests\TestCase;
 class AdminPanelTest extends TestCase
 {
     use RefreshDatabase;
-
-    private function appointment(array $attributes = []): Appointment
-    {
-        return Appointment::create($attributes + ['name' => 'Ramesh Kumar', 'phone' => '9876543210', 'status' => 'new']);
-    }
 
     public function test_guests_are_sent_to_the_login_page(): void
     {
@@ -44,62 +38,13 @@ class AdminPanelTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_dashboard_shows_new_requests(): void
+    public function test_dashboard_links_to_every_content_screen(): void
     {
-        $this->appointment(['name' => 'Sita Devi']);
-        $this->appointment(['name' => 'Old Patient', 'status' => 'completed']);
-
         $this->actingAs(User::factory()->create())
             ->get(route('admin.dashboard'))
             ->assertOk()
-            ->assertSee('Sita Devi')
-            ->assertSee('New requests to call back');
-    }
-
-    public function test_appointments_can_be_filtered_and_searched(): void
-    {
-        $this->appointment(['name' => 'Sita Devi']);
-        $this->appointment(['name' => 'Mohan Lal', 'phone' => '9123456780', 'status' => 'confirmed']);
-        $admin = User::factory()->create();
-
-        $this->actingAs($admin)->get(route('admin.appointments.index', ['status' => 'confirmed']))
-            ->assertSee('Mohan Lal')->assertDontSee('Sita Devi');
-
-        $this->actingAs($admin)->get(route('admin.appointments.index', ['q' => '91234']))
-            ->assertSee('Mohan Lal')->assertDontSee('Sita Devi');
-    }
-
-    public function test_appointment_status_can_be_updated(): void
-    {
-        $appointment = $this->appointment();
-
-        $this->actingAs(User::factory()->create())
-            ->patch(route('admin.appointments.update', $appointment), ['status' => 'confirmed'])
-            ->assertSessionHas('status');
-        $this->assertSame('confirmed', $appointment->fresh()->status);
-
-        $this->actingAs(User::factory()->create())
-            ->patch(route('admin.appointments.update', $appointment), ['status' => 'bogus'])
-            ->assertSessionHasErrors('status');
-    }
-
-    public function test_appointment_can_be_deleted(): void
-    {
-        $appointment = $this->appointment();
-
-        $this->actingAs(User::factory()->create())->delete(route('admin.appointments.destroy', $appointment));
-
-        $this->assertModelMissing($appointment);
-    }
-
-    public function test_guests_cannot_manage_appointments(): void
-    {
-        $appointment = $this->appointment();
-
-        $this->patch(route('admin.appointments.update', $appointment), ['status' => 'confirmed'])->assertRedirect(route('admin.login'));
-        $this->delete(route('admin.appointments.destroy', $appointment))->assertRedirect(route('admin.login'));
-
-        $this->assertSame('new', $appointment->fresh()->status);
+            ->assertSee(route('admin.content.edit', 'gallery'), false)
+            ->assertDontSee('Appointments');
     }
 
     public function test_password_change_requires_the_current_password(): void
