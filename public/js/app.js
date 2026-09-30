@@ -235,29 +235,42 @@
     blocks.forEach((block) => spy.observe(block));
   }
 
+  /* ---------- Gallery filter ---------- */
+  const items = $$('[data-gallery-item]');
+  const filter = $('[data-gallery-filter]');
+  if (filter) {
+    const buttons = $$('[data-filter]', filter);
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      const group = button.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+      items.forEach((item) => { item.hidden = group !== '' && item.dataset.group !== group; });
+    }));
+  }
+
   /* ---------- Gallery lightbox ---------- */
   const lightbox = $('[data-lightbox]');
-  const items = $$('[data-gallery-item]');
   if (lightbox && items.length && typeof lightbox.showModal === 'function') {
     const img = $('[data-lightbox-img]', lightbox);
     const caption = $('[data-lightbox-caption]', lightbox);
+    let shown = items;
     let index = 0;
     let opener = null;
 
     const show = (i) => {
-      index = (i + items.length) % items.length;
-      const item = items[index];
+      index = (i + shown.length) % shown.length;
+      const item = shown[index];
       img.src = item.dataset.full;
       img.alt = item.dataset.caption;
-      caption.textContent = `${item.dataset.caption} · ${index + 1} / ${items.length}`;
+      caption.textContent = `${item.dataset.caption} · ${index + 1} / ${shown.length}`;
       img.classList.remove('is-anim');
       void img.offsetWidth; // restart the zoom-in animation for each photo
       img.classList.add('is-anim');
     };
 
-    items.forEach((item, i) => item.addEventListener('click', () => {
+    items.forEach((item) => item.addEventListener('click', () => {
       opener = item;
-      show(i);
+      shown = items.filter((photo) => !photo.hidden);
+      show(shown.indexOf(item));
       lightbox.showModal();
     }));
     $('[data-lightbox-close]', lightbox).addEventListener('click', () => lightbox.close());

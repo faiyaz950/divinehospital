@@ -14,7 +14,7 @@ class PagesTest extends TestCase
             'about' => ['about', 'Meet Your'],
             'services' => ['services', 'Endoscopic Sinus Surgery (FESS)'],
             'facilities' => ['facilities', 'High-Definition Endoscopy Unit'],
-            'patient info' => ['patient-info', 'Frequently asked'],
+            'gallery' => ['gallery', 'Take a look'],
             'contact' => ['contact', 'Request an appointment'],
         ];
     }
@@ -56,7 +56,7 @@ class PagesTest extends TestCase
         $this->assertSame(1, substr_count($home, $award), 'Award should appear exactly once on the home page.');
         $this->assertMatchesRegularExpression('#class="hero__trust.*?'.preg_quote($award, '#').'#s', $home);
 
-        foreach (['about', 'services', 'facilities', 'patient-info', 'contact'] as $route) {
+        foreach (['about', 'services', 'facilities', 'gallery', 'contact'] as $route) {
             $this->get(route($route))->assertDontSee("Justdial Users' Choice 2026")->assertDontSee('jd-users-choice-2026');
         }
     }
@@ -65,9 +65,14 @@ class PagesTest extends TestCase
     {
         $response = $this->get('/sitemap.xml')->assertOk()->assertHeader('Content-Type', 'application/xml');
 
-        foreach (['home', 'about', 'services', 'facilities', 'patient-info', 'contact'] as $route) {
+        foreach (['home', 'about', 'services', 'facilities', 'gallery', 'contact'] as $route) {
             $response->assertSee(route($route), false);
         }
+    }
+
+    public function test_old_patient_information_link_redirects_to_the_gallery(): void
+    {
+        $this->get('/patient-information')->assertMovedPermanently()->assertRedirect('/gallery');
     }
 
     public function test_unknown_page_shows_branded_404(): void

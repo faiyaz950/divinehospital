@@ -22,7 +22,7 @@ $pages = [
     'about' => 'About Doctor',
     'services' => 'Specialities & Services',
     'facilities' => 'Facilities',
-    'patient-info' => 'Patient Information',
+    'gallery' => 'Gallery',
     'contact' => 'Contact & Appointments',
 ];
 
@@ -266,97 +266,47 @@ return [
             ],
         ],
 
-        'patient' => [
-            'label' => 'Patient Information page',
+        'gallery' => [
+            'label' => 'Gallery page',
             'group' => 'Website pages',
-            'route' => 'patient-info',
-            'icon' => 'clipboard',
+            'route' => 'gallery',
+            'icon' => 'image',
             'sections' => [
-                'seo' => $seo('Patient Information – Timings, First Visit & FAQs', 'Plan your visit to Divine ENT Centre, Farrukhabad: consultation timings, what to bring, what to expect, before and after surgery guidance, and frequently asked questions.'),
+                'seo' => $seo('Photo Gallery – Inside Divine Hospital', 'Photos of Divine Hospital – Divine ENT Centre, Farrukhabad: reception, OPD, operating theatre, endoscopy suite, audiology room and more.'),
                 'hero' => [
                     'label' => 'Page header',
                     'fields' => [
-                        'crumb' => ['type' => 'text', 'label' => 'Breadcrumb', 'default' => 'Patient Information'],
-                        'title' => ['type' => 'text', 'label' => 'Heading', 'required' => true, 'default' => 'Your visit, *made simple*', 'hint' => $accentHint],
-                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'Consultation timings, what to bring, and what to expect before and after your treatment — everything in one place.'],
-                        'primary_button' => ['type' => 'text', 'label' => 'Main button', 'default' => 'Book Consultation'],
-                        'secondary_button' => ['type' => 'text', 'label' => 'FAQ button', 'default' => 'Read FAQs'],
+                        'crumb' => ['type' => 'text', 'label' => 'Breadcrumb', 'default' => 'Gallery'],
+                        'title' => ['type' => 'text', 'label' => 'Heading', 'required' => true, 'default' => 'Photo *Gallery*', 'hint' => $accentHint],
+                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'A look inside Divine Hospital — our reception, OPD, operating theatre and diagnostic rooms.'],
+                        'image' => ['type' => 'picture', 'label' => 'Photo (optional)', 'default' => 'exterior'],
+                        'image_alt' => ['type' => 'text', 'label' => 'Photo description', 'default' => 'Divine Hospital building in Fatehgarh, Farrukhabad'],
                     ],
                 ],
-                'steps' => [
-                    'label' => 'How your visit works',
+                'photos' => [
+                    'label' => 'Photos',
+                    'description' => 'Give photos a category (for example Hospital, Events or Camps) to show filter buttons above the photos.',
                     'fields' => [
+                        'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'Gallery'],
+                        'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Take a look *inside*', 'hint' => $accentHint],
+                        'lead' => ['type' => 'text', 'label' => 'Intro', 'default' => 'Tap any photo to view it larger.'],
+                        'all_label' => ['type' => 'text', 'label' => '“All photos” filter button', 'default' => 'All photos'],
                         'items' => [
-                            'type' => 'repeater', 'label' => 'Steps', 'item_label' => 'title', 'add_label' => 'Add step', 'max' => 8,
+                            'type' => 'repeater', 'label' => 'Photos', 'item_label' => 'caption', 'add_label' => 'Add photo', 'max' => 150,
                             'fields' => [
-                                'title' => ['type' => 'text', 'label' => 'Title', 'required' => true],
-                                'text' => ['type' => 'textarea', 'label' => 'Text', 'rows' => 2],
+                                'image' => ['type' => 'picture', 'label' => 'Photo'],
+                                'caption' => ['type' => 'text', 'label' => 'Caption', 'required' => true],
+                                'category' => ['type' => 'text', 'label' => 'Category', 'max' => 40, 'hint' => 'Optional. Photos with the same category are grouped under one filter button.'],
                             ],
                             'default' => [
-                                ['title' => 'Book your slot', 'text' => 'Call, WhatsApp or use the online form. Our reception team confirms a convenient time.'],
-                                ['title' => 'Register at reception', 'text' => 'Arrive 10–15 minutes early with your previous reports and a valid photo ID.'],
-                                ['title' => 'Consultation & tests', 'text' => 'A detailed ENT examination, with endoscopy or hearing tests on-site when needed.'],
-                                ['title' => 'Your care plan', 'text' => 'A clear explanation of the diagnosis, treatment options and follow-up schedule.'],
-                            ],
-                        ],
-                    ],
-                ],
-                'visit' => [
-                    'label' => 'What to bring & timings',
-                    'description' => 'The timings themselves are edited under Settings → Contact & timings.',
-                    'fields' => [
-                        'bring_title' => ['type' => 'text', 'label' => 'Checklist heading', 'default' => 'What to bring'],
-                        'bring' => ['type' => 'list', 'label' => 'What to bring (one per line)', 'default' => [
-                            'Previous prescriptions and ENT reports',
-                            'CT / MRI scans, X-rays and audiogram reports (films or CDs)',
-                            'A list of current medicines and any known allergies',
-                            'A valid photo ID',
-                            'For children — a parent or guardian should accompany them',
-                        ]],
-                        'timings_title' => ['type' => 'text', 'label' => 'Timings heading', 'default' => 'Consultation timings'],
-                    ],
-                ],
-                'procedure' => [
-                    'label' => 'Before & after your procedure',
-                    'fields' => [
-                        'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'Surgery & Daycare'],
-                        'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Before & after *your procedure*', 'hint' => $accentHint],
-                        'lead' => ['type' => 'textarea', 'label' => 'Intro', 'rows' => 2, 'default' => 'General guidance only — always follow the specific instructions given to you by Dr. Goel and the team.'],
-                        'before_title' => ['type' => 'text', 'label' => '“Before” heading', 'default' => 'Before your procedure'],
-                        'before' => ['type' => 'list', 'label' => 'Before (one per line)', 'default' => [
-                            'Complete the pre-operative tests and fitness check advised for your procedure.',
-                            'Follow the fasting and medicine instructions given by the team exactly.',
-                            'Inform us about blood thinners, diabetes, blood pressure or any other conditions.',
-                            'Arrange for a family member or companion to accompany you on the day.',
-                        ]],
-                        'after_title' => ['type' => 'text', 'label' => '“After” heading', 'default' => 'After your procedure'],
-                        'after' => ['type' => 'list', 'label' => 'After (one per line)', 'default' => [
-                            'Take medicines and use nasal sprays or ear drops exactly as prescribed.',
-                            'Avoid strenuous activity, swimming or flying until your doctor clears you.',
-                            'Attend every follow-up visit so healing can be checked and cleaned if required.',
-                            'Contact us promptly for bleeding, high fever, severe pain or discharge.',
-                        ]],
-                        'emergency' => ['type' => 'textarea', 'label' => 'Emergency notice', 'rows' => 3, 'default' => '**In a medical emergency** — such as heavy bleeding, difficulty breathing or a sudden loss of hearing — call us at {phone} or go to the nearest emergency department immediately.', 'hint' => '{phone} becomes a tap-to-call link. **Double stars** for bold.'],
-                    ],
-                ],
-                'faq' => [
-                    'label' => 'FAQs',
-                    'fields' => [
-                        'eyebrow' => ['type' => 'text', 'label' => 'Small heading', 'default' => 'FAQs'],
-                        'title' => ['type' => 'text', 'label' => 'Heading', 'default' => 'Frequently asked *questions*', 'hint' => $accentHint],
-                        'items' => [
-                            'type' => 'repeater', 'label' => 'Questions', 'item_label' => 'q', 'add_label' => 'Add question',
-                            'fields' => [
-                                'q' => ['type' => 'text', 'label' => 'Question', 'required' => true],
-                                'a' => ['type' => 'textarea', 'label' => 'Answer', 'rows' => 3, 'required' => true],
-                            ],
-                            'default' => [
-                                ['q' => 'Do I need to book an appointment in advance?', 'a' => 'Booking in advance is recommended so we can keep your waiting time to a minimum. You can call, message us on WhatsApp or use the online form, and our team will confirm your slot.'],
-                                ['q' => 'Will I definitely need surgery?', 'a' => 'Not necessarily. Our approach is accurate diagnosis first — many ENT conditions are managed with medicines and follow-up care. Surgery is recommended only when it is the right option for you, and the reasons are explained clearly.'],
-                                ['q' => 'What is Endoscopic Sinus Surgery (FESS)?', 'a' => 'FESS is a minimally invasive procedure performed through the nostrils using a thin endoscope. It treats chronic sinusitis and nasal polyps without external cuts, which usually means less discomfort and a quicker recovery.'],
-                                ['q' => 'Is a hearing test painful?', 'a' => 'No. Audiometry is a simple, painless test done in our soundproof audiology room. You listen to tones through headphones and respond when you hear them.'],
-                                ['q' => 'Do you treat children?', 'a' => 'Yes. We manage common childhood ENT problems including recurrent tonsillitis, adenoid enlargement, snoring, sleep apnea and ear infections.'],
-                                ['q' => 'What are the consultation timings?', 'a' => 'OPD runs Monday to Saturday in morning and evening sessions. On Sundays, consultation is by prior appointment or for emergencies only. Please see the contact section for exact timings.'],
+                                ['image' => 'exterior', 'caption' => 'Divine Hospital — exterior', 'category' => 'Hospital'],
+                                ['image' => 'reception', 'caption' => 'Reception & billing counter', 'category' => 'Hospital'],
+                                ['image' => 'lobby', 'caption' => 'OPD waiting area', 'category' => 'Hospital'],
+                                ['image' => 'operation-theatre', 'caption' => 'Operating theatre with endoscopic system', 'category' => 'Operation theatre'],
+                                ['image' => 'procedure-room', 'caption' => 'Minor OT / procedure room', 'category' => 'Operation theatre'],
+                                ['image' => 'endoscopy-suite', 'caption' => 'Endoscopy suite', 'category' => 'Diagnostics'],
+                                ['image' => 'audiology', 'caption' => 'Soundproof audiology setup', 'category' => 'Diagnostics'],
+                                ['image' => 'xray', 'caption' => 'X-ray room', 'category' => 'Diagnostics'],
                             ],
                         ],
                     ],
@@ -732,7 +682,7 @@ return [
                                 ['route' => 'about', 'label' => 'About Doctor', 'short' => 'About'],
                                 ['route' => 'services', 'label' => 'Specialities & Services', 'short' => 'Services'],
                                 ['route' => 'facilities', 'label' => 'Facilities', 'short' => 'Facilities'],
-                                ['route' => 'patient-info', 'label' => 'Patient Information', 'short' => 'Patient Info'],
+                                ['route' => 'gallery', 'label' => 'Gallery', 'short' => 'Gallery'],
                                 ['route' => 'contact', 'label' => 'Contact & Appointments', 'short' => 'Contact'],
                             ],
                         ],
@@ -771,7 +721,7 @@ return [
                             ],
                             'default' => [
                                 ['label' => 'Audiology & Endoscopy', 'url' => '/facilities'],
-                                ['label' => 'Patient Information', 'url' => '/patient-information'],
+                                ['label' => 'Photo Gallery', 'url' => '/gallery'],
                             ],
                         ],
                         'contact_title' => ['type' => 'text', 'label' => 'Contact column heading', 'default' => 'Contact'],

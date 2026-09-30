@@ -116,25 +116,25 @@ class AdminContentTest extends TestCase
 
     public function test_repeater_rows_can_be_reordered_removed_and_added(): void
     {
-        $form = $this->formFor('patient');
-        $faqs = $form['fields']['faq']['items'];
-        $form['fields']['faq']['items'] = [
-            'n1' => ['q' => 'Is parking available?', 'a' => 'Yes, in front of the hospital.'],
-            5 => $faqs[5],
-            0 => $faqs[0],
+        $form = $this->formFor('layout');
+        $links = $form['fields']['footer']['links'];
+        $form['fields']['footer']['links'] = [
+            'n1' => ['label' => 'Parking & directions', 'url' => '/contact#map'],
+            4 => $links[4],
+            0 => $links[0],
         ];
 
         $this->actingAs(User::factory()->create())
-            ->put(route('admin.content.update', 'patient'), $form)
+            ->put(route('admin.content.update', 'layout'), $form)
             ->assertSessionHasNoErrors();
 
         $this->assertSame(
-            ['Is parking available?', $faqs[5]['q'], $faqs[0]['q']],
-            array_column(site('patient.faq.items'), 'q'),
+            ['Parking & directions', $links[4]['label'], $links[0]['label']],
+            array_column(site('layout.footer.links'), 'label'),
         );
-        $this->get(route('patient-info'))
-            ->assertSee('Is parking available?')
-            ->assertDontSee($faqs[1]['q']);
+        $this->get(route('home'))
+            ->assertSee('Parking &amp; directions', false)
+            ->assertDontSee($links[3]['label']);
     }
 
     public function test_one_per_line_lists_are_saved_as_items(): void
@@ -177,6 +177,68 @@ class AdminContentTest extends TestCase
         $this->assertFileDoesNotExist(public_path("images/{$name}-1600.webp"));
 
         $this->get(route('home'))->assertSee("images/{$name}-1024.webp", false);
+    }
+
+    public function test_uploaded_gallery_photo_appears_on_the_gallery_page_under_its_category(): void
+    {
+        $form = $this->formFor('gallery');
+        $form['fields']['photos']['items'] = [
+            'n1' => ['image' => '', 'caption' => 'Free hearing camp', 'category' => 'Health camps'],
+            0 => $form['fields']['photos']['items'][0],
+        ];
+
+        $this->actingAs(User::factory()->create())
+            ->put(route('admin.content.update', 'gallery'), $form + [
+                'uploads' => ['photos' => ['items' => ['n1' => ['image' => UploadedFile::fake()->image('camp.jpg', 800, 600)]]]],
+            ])
+            ->assertSessionHasNoErrors();
+
+        $name = site('gallery.photos.items.0.image');
+        $this->assertMatchesRegularExpression('#^uploads/camp-[a-z0-9]{6}$#', $name);
+
+        $this->get(route('gallery'))
+            ->assertSee("images/{$name}-640.webp", false)
+            ->assertSee('Free hearing camp')
+            ->assertSee('data-filter="health-camps"', false)
+            ->assertSee('data-filter="hospital"', false)
+            ->assertDontSee('Endoscopy suite');
+    }
+
+    public function test_gallery_filter_is_hidden_when_photos_share_one_category(): void
+    {
+        $form = $this->formFor('gallery');
+        foreach ($form['fields']['photos']['items'] as $index => $photo) {
+            $form['fields']['photos']['items'][$index]['category'] = '';
+        }
+
+        $this->actingAs(User::factory()->create())
+            ->put(route('admin.content.update', 'gallery'), $form)
+            ->assertSessionHasNoErrors();
+
+        $this->get(route('gallery'))
+            ->assertSee('Endoscopy suite')
+            ->assertDontSee('data-gallery-filter', false);
+    }
+
+    public function test_saved_patient_information_links_are_moved_to_the_gallery(): void
+    {
+        SiteContent::create(['key' => 'patient', 'value' => ['hero' => ['title' => 'Old page']]]);
+        SiteContent::create(['key' => 'layout', 'value' => [
+            'header' => ['nav' => [
+                ['route' => 'home', 'label' => 'Start', 'short' => 'Start'],
+                ['route' => 'patient-info', 'label' => 'Patient Info', 'short' => 'Info'],
+            ]],
+            'footer' => ['extra_links' => [['label' => 'Patient Information', 'url' => '/patient-information']]],
+        ]]);
+
+        (require database_path('migrations/2026_09_30_175933_replace_patient_page_with_gallery.php'))->up();
+
+        $this->assertDatabaseMissing(SiteContent::class, ['key' => 'patient']);
+        $this->assertSame(['home', 'gallery'], array_column(site('layout.header.nav'), 'route'));
+        $this->get(route('home'))
+            ->assertSee('class="nav__link" href="'.route('gallery').'"', false)
+            ->assertSee('Photo Gallery')
+            ->assertDontSee('Patient Info');
     }
 
     public function test_optional_image_can_be_removed(): void

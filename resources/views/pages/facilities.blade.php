@@ -32,28 +32,9 @@
                 <x-section-head :eyebrow="$gallery['eyebrow']" align="center" :lead="$gallery['lead']">
                     <x-slot:title><span id="gallery-title">{{ site()->format($gallery['title']) }}</span></x-slot:title>
                 </x-section-head>
-                <div class="gallery" data-gallery>
-                    @foreach ($gallery['photos'] as $photo)
-                        @php($largest = collect([1600, 1024, 640, 560])->first(fn ($w) => $photo['image'] && is_file(public_path("images/{$photo['image']}-{$w}.webp"))))
-                        @continue(! $largest)
-                        <button class="gallery__item" type="button" data-gallery-item data-full="{{ asset("images/{$photo['image']}-{$largest}.webp") }}" data-caption="{{ $photo['caption'] }}" data-reveal="scale" style="--i: {{ $loop->index % 4 }}">
-                            <x-picture :name="$photo['image']" :alt="$photo['caption']" sizes="(min-width: 900px) 25vw, 50vw" />
-                            <span class="gallery__cap"><x-icon name="zoom" /> {{ $photo['caption'] }}</span>
-                        </button>
-                    @endforeach
-                </div>
+                <x-gallery :photos="$gallery['photos']" />
             </div>
         </section>
-
-        <dialog class="lightbox" data-lightbox aria-label="Photo viewer">
-            <button class="lightbox__btn lightbox__close" type="button" data-lightbox-close aria-label="Close"><x-icon name="x" /></button>
-            <button class="lightbox__btn lightbox__prev" type="button" data-lightbox-prev aria-label="Previous photo"><x-icon name="chevron-left" /></button>
-            <figure class="lightbox__figure">
-                <img src="" alt="" data-lightbox-img>
-                <figcaption data-lightbox-caption></figcaption>
-            </figure>
-            <button class="lightbox__btn lightbox__next" type="button" data-lightbox-next aria-label="Next photo"><x-icon name="chevron-right" /></button>
-        </dialog>
     @endif
 
     @include('sections.why')

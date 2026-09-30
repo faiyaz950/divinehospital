@@ -8,15 +8,17 @@ Route::view('/', 'pages.home')->name('home');
 Route::view('/about-dr-rajat-goel', 'pages.about')->name('about');
 Route::view('/ent-services', 'pages.services')->name('services');
 Route::view('/facilities', 'pages.facilities')->name('facilities');
-Route::view('/patient-information', 'pages.patient-information')->name('patient-info');
+Route::view('/gallery', 'pages.gallery')->name('gallery');
 Route::view('/contact', 'pages.contact')->name('contact');
+
+Route::permanentRedirect('/patient-information', '/gallery');
 
 Route::post('/appointments', [AppointmentController::class, 'store'])
     ->middleware('throttle:5,1')
     ->name('appointments.store');
 
 Route::get('/sitemap.xml', fn () => response()
-    ->view('sitemap', ['routes' => ['home', 'about', 'services', 'facilities', 'patient-info', 'contact']])
+    ->view('sitemap', ['routes' => ['home', 'about', 'services', 'facilities', 'gallery', 'contact']])
     ->header('Content-Type', 'application/xml'))
     ->name('sitemap');
 

@@ -1316,6 +1316,30 @@ input[type="date"].input { min-height: 52px; }
   .gallery__cap { opacity: 0; transform: translateY(8px); }
   .gallery__item:hover .gallery__cap, .gallery__item:focus-visible .gallery__cap { opacity: 1; transform: none; }
 }
+.gallery__item[hidden] { display: none; }
+@media (min-width: 900px) {
+  .gallery--grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 260px; }
+  .gallery--grid .gallery__item:first-child, .gallery--grid .gallery__item:nth-child(7) { grid-column: auto; grid-row: auto; }
+}
+@media (min-width: 1200px) { .gallery--grid { grid-template-columns: repeat(4, 1fr); } }
+
+.gallery-filter { position: static; margin-bottom: 1.75rem; }
+.gallery-filter button {
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  font: inherit;
+  font-size: .92rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background-color .2s, color .2s;
+}
+.gallery-filter button:hover { background: var(--teal-50); color: var(--teal-900); }
+.gallery-filter button[aria-pressed="true"] { background: var(--teal-900); color: #fff; }
 
 .lightbox {
   width: 100%; max-width: 100%;
@@ -1349,34 +1373,7 @@ input[type="date"].input { min-height: 52px; }
 .lightbox__next { right: 16px; top: 50%; transform: translateY(-50%); }
 @media (max-width: 640px) { .lightbox__prev, .lightbox__next { top: auto; bottom: 20px; transform: none; } }
 
-/* ---------- 20. Patient information page ---------- */
-.steps { display: grid; gap: 1rem; }
-@media (min-width: 640px) { .steps { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1024px) { .steps { grid-template-columns: repeat(4, 1fr); } }
-.step {
-  position: relative;
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  background: var(--surface);
-  box-shadow: var(--sh-1);
-}
-.step__num {
-  display: grid;
-  place-items: center;
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: var(--teal-900);
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  font-style: italic;
-  color: var(--gold-400);
-}
-.step h3 { margin-top: 1.25rem; font-size: 1.15rem; font-weight: 800; color: var(--teal-950); }
-.step p { margin-top: .4rem; font-size: .95rem; color: var(--text-3); }
-
-.info-split { display: grid; gap: 1.25rem; }
-@media (min-width: 900px) { .info-split { grid-template-columns: 1fr 1fr; } }
+/* ---------- 20. Panels & checklists ---------- */
 .card-row { display: grid; gap: 1.25rem; }
 @media (min-width: 900px) { .card-row { grid-template-columns: repeat(3, 1fr); } }
 
@@ -1398,53 +1395,6 @@ input[type="date"].input { min-height: 52px; }
 .checklist { display: grid; gap: .85rem; }
 .checklist li { display: flex; align-items: flex-start; gap: .75rem; color: var(--text-2); }
 .panel--dark .checklist li { color: var(--on-dark-2); }
-
-.hours-list__status { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; font-size: .92rem; color: var(--on-dark-2); }
-.hours-list__status [data-open-label] { font-weight: 800; color: #fff; }
-.hours-list dl { display: grid; margin-bottom: 1.5rem; }
-.hours-list dl div { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid rgba(255, 255, 255, .1); }
-.hours-list dt { color: var(--on-dark-2); }
-.hours-list dd { font-weight: 700; text-align: right; color: #fff; }
-
-.notice {
-  display: flex;
-  gap: .9rem;
-  margin-top: 1.5rem;
-  padding: 1.15rem 1.35rem;
-  border: 1px solid #fedf89;
-  border-radius: var(--r-md);
-  background: #fffaeb;
-  color: #7a4a05;
-}
-.notice .icon { margin-top: .15rem; color: #b54708; }
-.notice a { font-weight: 700; text-decoration: underline; }
-
-.faq { display: grid; gap: .75rem; max-width: 54rem; margin-inline: auto; }
-.faq details {
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--surface);
-  transition: border-color .25s, box-shadow .25s;
-}
-.faq details[open] { border-color: var(--teal-200); box-shadow: var(--sh-2); }
-.faq summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 60px;
-  padding: 1rem 1.25rem 1rem 1.4rem;
-  font-size: 1.04rem;
-  font-weight: 700;
-  color: var(--teal-950);
-  list-style: none;
-  cursor: pointer;
-}
-.faq summary::-webkit-details-marker { display: none; }
-.faq__icon { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--teal-50); color: var(--teal-800); transition: transform .35s var(--ease-out), background-color .25s; }
-.faq__icon .icon { width: 18px; height: 18px; }
-.faq details[open] .faq__icon { transform: rotate(45deg); background: var(--gold-400); }
-.faq__answer { padding: 0 1.4rem 1.3rem; color: var(--text-2); }
 
 /* ---------- 21. Footer ---------- */
 .site-footer {
